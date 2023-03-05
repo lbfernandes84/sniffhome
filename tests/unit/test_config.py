@@ -8,9 +8,11 @@ class TestConfig(unittest.TestCase):
     
     def test_load_label_key_mapper(self):
         map_config = ConfigurationHandler()        
-        self.assertEqual(map_config.key_label_maps["price"], "Price")
+        map_config.load_configuration()
+        self.assertEqual(map_config.configMap["price"].label, "Price")
 
     def test_load_label_key_mapper_2(self):
         map_config = ConfigurationHandler()        
-        self.assertEqual(map_config.key_label_maps["real_state_code"], "Real State Code")
+        map_config.load_configuration()
+        self.assertEqual(map_config.configMap["real_state_code"].label, "Real State Code")
 
