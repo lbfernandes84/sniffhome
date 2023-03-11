@@ -131,3 +131,4 @@ dmypy.json
 #Test Enviroment Config
 config/~$*
 config/TEST_*
+tests/files/~$*
