@@ -3,24 +3,20 @@ import json
 from openpyxl import load_workbook
 from openpyxl import utils
 
+from . import settings
 
-
-TEST_ENVIROMENT = True
-
-CONFIG_DIRECTORY = "../config"
-JSON_CONFIG_FILE_NAME = "config.json"
-EXCEL_CONFIG_FILE_NAME = "config.xlsx"
 
 class ConfigurationHandler:
 
     def __init__(self):
         self.json_obj = None
         self.workbook = None
-        self.config_map = dict()
-        self.prefix = ""
-        self.searches = dict()
-        if(TEST_ENVIROMENT):
-            self.prefix = "TEST_"                
+        self.config_map = dict()        
+        self.searches = dict()        
+
+    def __del__(self):
+        if self.workbook:
+            self.workbook.close()            
 
     def load_configuration(self):
         self.__initialize_excel_config()
@@ -29,10 +25,10 @@ class ConfigurationHandler:
         self.__setup_searches()
         
     def __initialize_excel_config(self):        
-        self.workbook = load_workbook(filename=os.path.abspath(os.path.join(CONFIG_DIRECTORY, self.prefix + EXCEL_CONFIG_FILE_NAME)), read_only=True)
+        self.workbook = load_workbook(filename=os.path.join(settings.CONFIG_DIRECTORY, settings. EXCEL_CONFIG_FILE_NAME), read_only=True)
     
     def __load_config_from_json(self):
-        config_file = open(os.path.abspath(os.path.join(CONFIG_DIRECTORY, self.prefix + JSON_CONFIG_FILE_NAME)))
+        config_file = open(os.path.abspath(os.path.join(settings.CONFIG_DIRECTORY,  settings.JSON_CONFIG_FILE_NAME)))
         self.json_obj = json.load(config_file)
         config_file.close()
 
@@ -67,7 +63,8 @@ class ConfigurationHandler:
             if supplier_code not in  self.searches:
                 self.searches[supplier_code] = []
             self.searches[supplier_code].append(search)
-            number_of_searches += 1
+            number_of_searches += 1            
+        
         patterns_sheet = self.config_map["realty_container_pattern"].sheet        
         ws = self.workbook[patterns_sheet] 
         col_index_end= utils.column_index_from_string(self.config_map["change_page_pattern"].column)        
@@ -76,8 +73,7 @@ class ConfigurationHandler:
             if supplier_code in self.searches:
                 for search in self.searches[supplier_code]:
                     search.container_parser = cell[1]
-                    search.change_page_parser = cell[2]
-                print(search)
+                    search.change_page_parser = cell[2]               
         
         
 class ConfigMap:
@@ -87,7 +83,6 @@ class ConfigMap:
         self.label = ""
         self.sheet = ""
         self.column = ""
-
    
 class Search:
 
