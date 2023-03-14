@@ -43,6 +43,63 @@ class TestConfig(unittest.TestCase):
 
     def test_get_search_change_page(self):                
         self.assertEqual(self.map_config.searches["VIVAREAL"][0].change_page_parser,'test[change="get"]')
-        
-        
 
+    def test_get_search_real_state_name_parser(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].real_state_name.parser,'a.publisher__name')
+
+    def test_get_search_real_state_price_parser(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].price.parser,'.price__price-info')
+        
+    def test_get_search_real_state_condominium_parser(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].condominium.parser,'span.condominium')
+
+    def test_get_search_real_state_other_tax_parser(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].other_tax.parser,'span.iptu')
+
+    def test_get_search_real_state_description_parser(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].description.parser,'h1.title__title')
+
+    def test_get_search_real_state_street_parser(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].street.parser,'p.title__address')
+
+    def test_get_search_real_state_neighborhood_parser(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].neighborhood.parser,'p.title__address')
+
+    def test_get_search_real_state_area_parser(self):                
+        self.assertIsNone(self.map_config.searches["VIVAREAL"][0].area.parser)
+
+    def test_get_search_real_state_rooms_parser(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].rooms.parser, "li.features__item--bedroom")
+
+    def test_get_search_real_state_garage_parser(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].garages.parser, "li.features__item--parking")    
+    
+    def test_get_search_real_state_name_extractor(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].real_state_name.extractor_pattern, None)
+
+    def test_get_search_real_state_price_extractor(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].price.extractor_pattern,'REGEX<>\d+\.?\d*')
+        
+    def test_get_search_real_state_condominium_extractor(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].condominium.extractor_pattern,'REGEX<>\d+')
+
+    def test_get_search_real_state_other_tax_extractor(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].other_tax.extractor_pattern,'REGEX<>\d+')
+
+    def test_get_search_real_state_description_extractor(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].description.extractor_pattern, None)
+
+    def test_get_search_real_state_neighborhood_extractor(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].neighborhood.extractor_pattern,'SPLIT<>,<>1')
+    
+    def test_get_search_real_state_street_extractor(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].street.extractor_pattern,'SPLIT<>,<>0')
+
+    def test_get_search_real_state_area_extractor(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].area.extractor_pattern,'REGEX<>\d+')        
+
+    def test_get_search_real_state_rooms_extractor(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].rooms.extractor_pattern, 'REGEX<>\d+')
+
+    def test_get_search_real_state_garage_extractor(self):                
+        self.assertEqual(self.map_config.searches["VIVAREAL"][0].garages.extractor_pattern, 'REGEX<>\d+')

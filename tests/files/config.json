@@ -89,37 +89,86 @@
             "sheet":"attributes",
             "column":"G",
             "label_cell":"G1",                
-            "key":"neighborhood"  
+            "key":"address"  
         },
         {
             "sheet":"attributes",
             "column":"H",
             "label_cell":"H1",                
-            "key":"street"  
-        },
+            "key":"area"  
+        },        
         {
             "sheet":"attributes",
             "column":"I",
             "label_cell":"I1",                
-            "key":"number"  
+            "key":"number_of_rooms"  
         },
         {
             "sheet":"attributes",
             "column":"J",
             "label_cell":"J1",                
-            "key":"area"  
+            "key":"number_of_garages"  
         },
         {
-            "sheet":"attributes",
+            "sheet":"extractor",
+            "column":"B",
+            "label_cell":"B1",                
+            "key":"real_state_extractor"  
+        },
+        {
+            "sheet":"extractor",
+            "column":"C",
+            "label_cell":"C1",                
+            "key":"price_extractor"  
+        },
+        {
+            "sheet":"extractor",
+            "column":"D",
+            "label_cell":"D1",                
+            "key":"condominium_extractor"  
+        },
+        {
+            "sheet":"extractor",
+            "column":"E",
+            "label_cell":"E1",                
+            "key":"other_tax_extractor"  
+        },
+        {
+            "sheet":"extractor",
+            "column":"F",
+            "label_cell":"F1",                
+            "key":"description_extractor"  
+        },
+        {
+            "sheet":"extractor",
+            "column":"G",
+            "label_cell":"G1",                
+            "key":"neighborhood_extractor"  
+        },
+        {
+            "sheet":"extractor",
+            "column":"H",
+            "label_cell":"H1",                
+            "key":"street_extractor"  
+        },
+        {
+            "sheet":"extractor",
+            "column":"I",
+            "label_cell":"I1",                
+            "key":"area_extractor"  
+        },
+        {
+            "sheet":"extractor",
+            "column":"J",
+            "label_cell":"J1",                
+            "key":"rooms_extractor"  
+        },
+        {
+            "sheet":"extractor",
             "column":"K",
             "label_cell":"K1",                
-            "key":"number_of_rooms"  
-        },
-        {
-            "sheet":"attributes",
-            "column":"L",
-            "label_cell":"L1",                
-            "key":"number_of_garages"  
+            "key":"garage_extractor"  
         }
+        
     ]
 }

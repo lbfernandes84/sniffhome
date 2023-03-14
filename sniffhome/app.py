@@ -65,8 +65,8 @@ class ConfigurationHandler:
             self.searches[supplier_code].append(search)
             number_of_searches += 1            
         
-        patterns_sheet = self.config_map["realty_container_pattern"].sheet        
-        ws = self.workbook[patterns_sheet] 
+        attr_patterns_sheet = self.config_map["realty_container_pattern"].sheet        
+        ws = self.workbook[attr_patterns_sheet] 
         col_index_end= utils.column_index_from_string(self.config_map["change_page_pattern"].column)        
         for cell in ws.iter_rows(min_row=2, min_col=0, max_col=col_index_end, values_only = True):
             supplier_code = cell[0]
@@ -74,6 +74,42 @@ class ConfigurationHandler:
                 for search in self.searches[supplier_code]:
                     search.container_parser = cell[1]
                     search.change_page_parser = cell[2]               
+
+        attr_patterns_sheet = self.config_map["real_state_code"].sheet        
+        ws = self.workbook[attr_patterns_sheet] 
+        col_index_end= utils.column_index_from_string(self.config_map["number_of_garages"].column)        
+        for cell in ws.iter_rows(min_row=2, min_col=0, max_col=col_index_end, values_only = True):
+            supplier_code = cell[0]
+            if supplier_code in self.searches:
+                for search in self.searches[supplier_code]:                    
+                    search.real_state_name.parser = cell[1]
+                    search.price.parser = cell[2]
+                    search.condominium.parser = cell[3]
+                    search.other_tax.parser = cell[4]
+                    search.description.parser = cell[5]
+                    search.street.parser = cell[6]
+                    search.neighborhood.parser = cell[6]
+                    search.area.parser = cell[7]
+                    search.rooms.parser = cell[8]
+                    search.garages.parser = cell[9]
+
+        attr_patterns_sheet = self.config_map["real_state_extractor"].sheet        
+        ws = self.workbook[attr_patterns_sheet] 
+        col_index_end= utils.column_index_from_string(self.config_map["garage_extractor"].column)        
+        for cell in ws.iter_rows(min_row=2, min_col=0, max_col=col_index_end, values_only = True):
+            supplier_code = cell[0]
+            if supplier_code in self.searches:
+                for search in self.searches[supplier_code]:                    
+                    search.real_state_name.extractor_pattern = cell[1]
+                    search.price.extractor_pattern = cell[2]
+                    search.condominium.extractor_pattern = cell[3]
+                    search.other_tax.extractor_pattern = cell[4]
+                    search.description.extractor_pattern = cell[5]
+                    search.neighborhood.extractor_pattern = cell[6]
+                    search.street.extractor_pattern = cell[7]
+                    search.area.extractor_pattern = cell[8]
+                    search.rooms.extractor_pattern = cell[9]
+                    search.garages.extractor_pattern = cell[10]                
         
         
 class ConfigMap:
@@ -84,6 +120,21 @@ class ConfigMap:
         self.sheet = ""
         self.column = ""
    
+class RealtyFeature:
+
+    REGEX = 1
+    SPLIT = 2
+    
+    def __init__(self):
+        self.parser = ""
+        self.extractor_pattern = ""
+        self.extractor_type = None
+        self.split_string = ""
+        self.index = 0
+    
+    def load_extractor_attr(self):
+        pass
+
 class Search:
 
     def __init__(self):
@@ -95,7 +146,16 @@ class Search:
         self.enable = True
         self.container_parser = ""
         self.change_page_parser = ""
-        self.attribute_parser = RealtyAttributeParser()
+        self.real_state_name = RealtyFeature()
+        self.price = RealtyFeature()
+        self.condominium = RealtyFeature()
+        self.other_tax = RealtyFeature()
+        self.description = RealtyFeature()        
+        self.street = RealtyFeature()
+        self.neighborhood = RealtyFeature()        
+        self.area = RealtyFeature()
+        self.rooms = RealtyFeature()
+        self.garages = RealtyFeature()
 
     def __repr__(self):
         return "Supplier: {supplier}\n"\
@@ -108,18 +168,26 @@ class Search:
         .format(supplier = self.supplier_code, name=self.name, selenium = self.use_selenium, wait = self.load_wait_seconds, \
                 content=self.container_parser, change_page= self.change_page_parser, active= self.enable)
 
-class RealtyAttributeParser:
+    
+
+class RealtyAddressParser:
+
+    def __init__(self, address_parser, neighborhood_extractor, street_extractor):
+        self.parser = address_parser
+        self.neighborhood_extractor
+
+class RealtyFeatures:
 
     def __init__(self):        
-        self.realty_code = ""
-        self.price = ""
-        self.condominium = ""
-        self.other_tax = ""
-        self.description = ""
-        self.neighborhood = ""
-        self.street = ""
-        self.number = ""
-        self.area = ""
-        self.rooms = ""
-        self.garages = ""
+        self.description = RealtyFeature()
+        self.realty_code = RealtyFeature()
+        self.price = RealtyFeature()
+        self.condominium = RealtyFeature()
+        self.other_tax = RealtyFeature()
+        self.neighborhood = RealtyFeature()
+        self.street = RealtyFeature()
+        self.number = RealtyFeature()
+        self.area = RealtyFeature()
+        self.rooms = RealtyFeature()
+        self.garages = RealtyFeature()
 
